@@ -3,6 +3,7 @@
 
 #pragma once
 
+#include <appmgr/models/WallpaperDisplayModel.hpp>
 #include <service-appmgr/model/ApplicationManagerCommon.hpp>
 
 #include <apps-common/locks/handlers/PhoneLockHandler.hpp>
@@ -65,5 +66,7 @@ namespace app::manager
         // manager is sending signal to Application Desktop in order to
         // lock screen.
         sys::TimerHandle autoLockTimer;
+
+        wallpaper::WallpaperDisplayModel wallpaperModel;
     };
 } // namespace app::manager

@@ -78,6 +78,9 @@ namespace app::manager
         phoneLockHandler.setNoLockTimeAttemptsLeft(utils::getNumericValue<unsigned int>(
             settings->getValue(settings::SystemProperties::noLockTimeAttemptsLeft, settings::SettingsScope::Global)));
 
+        wallpaperModel.setWallpaper(static_cast<gui::WallpaperOption>(utils::getNumericValue<unsigned int>(
+            settings->getValue(settings::Wallpaper::option, settings::SettingsScope::Global))));
+
         settings->registerValueChange(
             settings::SystemProperties::lockScreenPasscodeIsOn,
             [this](const std::string &value) { phoneLockHandler.enablePhoneLock(utils::getNumericValue<bool>(value)); },
@@ -100,6 +103,14 @@ namespace app::manager
         settings->registerValueChange(
             settings::SystemProperties::autoLockTimeInSec,
             [this](std::string value) { lockTimeChanged(std::move(value)); },
+            settings::SettingsScope::Global);
+
+        settings->registerValueChange(
+            settings::Wallpaper::option,
+            [this](std::string value) {
+                wallpaperModel.setWallpaper(
+                    static_cast<gui::WallpaperOption>(utils::getNumericValue<unsigned int>(value)));
+            },
             settings::SettingsScope::Global);
 
         return sys::ReturnCodes::Success;
