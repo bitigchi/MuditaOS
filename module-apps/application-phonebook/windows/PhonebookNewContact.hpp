@@ -42,6 +42,7 @@ namespace gui
         std::shared_ptr<NewContactModel> newContactModel = nullptr;
         gui::ListView *list                              = nullptr;
         ContactAction contactAction                      = ContactAction::None;
+        PhonebookItemData::RequestType requestType       = PhonebookItemData::RequestType::Internal;
     };
 
 } /* namespace gui */

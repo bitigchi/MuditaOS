@@ -73,6 +73,10 @@ namespace gui
         }
 
         !newContactModel->emptyData() ? setSaveButtonVisible(true) : setSaveButtonVisible(false);
+
+        if (auto message = dynamic_cast<PhonebookItemData *>(data); message != nullptr) {
+            requestType = message->getRequestType();
+        }
     }
 
     auto PhonebookNewContact::handleSwitchData(SwitchData *data) -> bool
@@ -178,7 +182,7 @@ namespace gui
             }
         }
 
-        std::unique_ptr<gui::SwitchData> data = std::make_unique<PhonebookItemData>(contact);
+        std::unique_ptr<gui::SwitchData> data = std::make_unique<PhonebookItemData>(contact, requestType);
         data->ignoreCurrentWindowOnStack      = true;
         application->switchWindow(gui::window::name::contact, std::move(data));
         return true;
