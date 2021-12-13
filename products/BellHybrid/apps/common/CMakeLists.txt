@@ -42,7 +42,7 @@ target_sources(application-bell-common
         src/options/OptionBellMenu.cpp
         src/options/BellOptionsNavigation.cpp
     PUBLIC
-        include/common/Languages.hpp
+        include/common/ExcludedLanguages.hpp
         include/common/BellListItemProvider.hpp
         include/common/LanguageUtils.hpp
         include/common/SoundsRepository.hpp

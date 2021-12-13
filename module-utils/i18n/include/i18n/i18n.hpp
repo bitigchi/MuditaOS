@@ -20,9 +20,14 @@ namespace utils
     class LangLoader
     {
       public:
+        explicit LangLoader(std::vector<Language> excludeList = {});
         virtual ~LangLoader() = default;
         std::vector<Language> getAvailableDisplayLanguages() const;
         std::vector<Language> getAvailableInputLanguages() const;
+
+      private:
+        bool matcher(std::string_view language) const;
+        const std::vector<Language> excludedLanguages;
     };
 
     const std::string &translate(const std::string &text);

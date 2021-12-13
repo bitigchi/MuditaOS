@@ -3,7 +3,6 @@
 
 #define CATCH_CONFIG_MAIN // This tells Catch to provide a main() - only do this in one cpp file
 #include <catch2/catch.hpp>
-
 #include <i18n/i18n.hpp>
 #include <string>
 
@@ -114,4 +113,18 @@ TEST_CASE("Test get string method - valid display language set")
 
     // Display language set - Polish
     REQUIRE(utils::translate("common_yes") == "Tak");
+}
+
+TEST_CASE("Test language loader - exclude list")
+{
+    utils::resetAssetsPath("sys/current/assets");
+    utils::resetDisplayLanguages();
+    const auto exclude    = std::vector<std::string>{"Svenska", "Deutsch"};
+    const auto langLoader = utils::LangLoader(exclude);
+    const auto languages  = langLoader.getAvailableDisplayLanguages();
+    REQUIRE(not languages.empty());
+
+    CHECK(std::all_of(languages.begin(), languages.end(), [&exclude](const auto &e) {
+        return std::find(exclude.begin(), exclude.end(), e) == exclude.end();
+    }));
 }
