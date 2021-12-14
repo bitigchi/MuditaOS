@@ -12,20 +12,21 @@
 
 namespace Log
 {
-    std::map<std::string, logger_level> Logger::filtered = {{"ApplicationManager", logger_level::LOGINFO},
+    std::map<std::string, logger_level> Logger::filtered = {
+        {"ApplicationManager", logger_level::LOGINFO},
 #if (!LOG_SENSITIVE_DATA_ENABLED)
-                                                            {"CellularMux", logger_level::LOGINFO},
-                                                            {"ServiceCellular", logger_level::LOGINFO},
+        {"CellularMux", logger_level::LOGINFO},
+        {"ServiceCellular", logger_level::LOGINFO},
 #endif
-                                                            {"ServiceAntenna", logger_level::LOGERROR},
-                                                            {"ServiceAudio", logger_level::LOGINFO},
-                                                            {"ServiceBluetooth", logger_level::LOGINFO},
-                                                            {"ServiceBluetooth_w1", logger_level::LOGINFO},
-                                                            {"ServiceFota", logger_level::LOGINFO},
-                                                            {"ServiceEink", logger_level::LOGINFO},
-                                                            {"ServiceDB", logger_level::LOGINFO},
-                                                            {CRIT_STR, logger_level::LOGTRACE},
-                                                            {IRQ_STR, logger_level::LOGTRACE}};
+        {"ServiceAntenna", logger_level::LOGERROR},
+        {"ServiceAudio", logger_level::LOGINFO},
+        {"ServiceBluetooth", logger_level::LOGINFO},
+        {"ServiceBluetooth_w1", logger_level::LOGINFO},
+        {"ServiceFota", logger_level::LOGINFO},
+        {"ServiceEink", logger_level::LOGINFO},
+        //                                                            {"ServiceDB", logger_level::LOGINFO},
+        {CRIT_STR, logger_level::LOGTRACE},
+        {IRQ_STR, logger_level::LOGTRACE}};
     const char *Logger::levelNames[]                     = {"TRACE", "DEBUG", "INFO", "WARN", "ERROR", "FATAL"};
 
     std::ostream &operator<<(std::ostream &stream, const Application &application)

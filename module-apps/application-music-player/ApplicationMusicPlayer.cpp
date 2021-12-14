@@ -32,7 +32,7 @@ namespace app
         };
     } // namespace music_player::internal
 
-    constexpr std::size_t applicationMusicPlayerStackSize = 5 * 1024;
+    constexpr std::size_t applicationMusicPlayerStackSize = 8 * 1024;
 
     ApplicationMusicPlayer::ApplicationMusicPlayer(std::string name,
                                                    std::string parent,
