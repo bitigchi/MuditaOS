@@ -54,22 +54,11 @@ namespace gui
         void setLineStartConditions(unsigned int startBlockNumber, unsigned int startBlockPosition);
         RawText *buildUITextPart(const UTF8 &text, const TextFormat *format);
 
+        explicit TextLine(Length maxWidth) : maxWidth(maxWidth){};
+
       public:
-        /// creates TextLine with data from text based on TextCursor position filling max_width
-        TextLine(BlockCursor &, unsigned int maxWidth);
         TextLine(TextLine &) = delete;
         TextLine(TextLine &&) noexcept;
-
-        TextLine(BlockCursor &cursor,
-                 unsigned int maxWidth,
-                 unsigned int initHeight,
-                 UnderLineProperties underLineProperties)
-            : TextLine(cursor, maxWidth)
-        {
-            this->underLineProperties                 = underLineProperties;
-            this->underLineProperties.underlineHeight = initHeight;
-        }
-
         ~TextLine();
 
         /// number of letters in Whole TextLines

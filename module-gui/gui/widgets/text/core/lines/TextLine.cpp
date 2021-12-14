@@ -13,9 +13,6 @@ namespace gui
         return item;
     }
 
-    TextLine::TextLine(BlockCursor &localCursor, unsigned int maxWidth) : maxWidth(maxWidth)
-    {}
-
     TextLine::TextLine(TextLine &&from) noexcept
     {
         lineContent            = std::move(from.lineContent);

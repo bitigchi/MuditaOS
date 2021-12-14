@@ -17,14 +17,8 @@ namespace gui
         void handleDownNavigation(unsigned int selectedLineNumber, unsigned int selectedLineCursorPosition);
         void handleUpNavigation(unsigned int selectedLineNumber, unsigned int selectedLineCursorPosition);
 
-        bool handleNextLine() override
-        {
-            return displayNextLine();
-        };
-        bool handlePreviousLine() override
-        {
-            return displayPreviousLine();
-        }
+        [[nodiscard]] bool handleNextLine() override;
+        [[nodiscard]] bool handlePreviousLine() override;
 
       public:
         explicit TextLineCursor(gui::Text *parent, unsigned int pos = text::npos, unsigned int block = text::npos);

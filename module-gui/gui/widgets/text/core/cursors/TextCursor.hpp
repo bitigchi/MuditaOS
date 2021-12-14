@@ -49,14 +49,8 @@ namespace gui
         /// removeChar)
         virtual Move moveCursor(NavigationDirection direction);
         virtual Move moveCursor(NavigationDirection direction, unsigned int n);
-        virtual bool handleNextLine()
-        {
-            return false;
-        };
-        virtual bool handlePreviousLine()
-        {
-            return false;
-        };
+        [[nodiscard]] virtual bool handleNextLine();
+        [[nodiscard]] virtual bool handlePreviousLine();
 
         // TODO note to self - here should be too UTF8 char handling, not in document...
         // cursor can pass processing char directly to TextBlock we are interested in...

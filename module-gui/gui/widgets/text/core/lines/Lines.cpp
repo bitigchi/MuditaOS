@@ -45,7 +45,7 @@ namespace gui
     auto Lines::drawSingleLine(
         BlockCursor &drawCursor, Length w, Length h, Position lineYPosition, Position lineXPosition) -> void
     {
-        // TODO in next PRs
+        // TODO in EGD-3411
     }
 
     auto Lines::drawMultiLine(

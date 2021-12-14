@@ -7,7 +7,7 @@ namespace gui
 {
     /// Note - line breaking could be done here with different TextLines to return
     /// or via different block types (i.e. numeric block tyle could be not "breakable"
-    MultiTextLine::MultiTextLine(BlockCursor &localCursor, unsigned int maxWidth) : TextLine(localCursor, maxWidth)
+    MultiTextLine::MultiTextLine(BlockCursor &localCursor, unsigned int maxWidth) : TextLine(maxWidth)
     {
         do {
             if (!localCursor) { // cursor is faulty
