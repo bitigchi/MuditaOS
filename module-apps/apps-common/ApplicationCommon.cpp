@@ -570,17 +570,17 @@ namespace app
         }
         auto anotherWindowOnTop = (not isCurrentWindow(msg->getWindowName())) and (not windowsStack().isEmpty());
         if (anotherWindowOnTop) {
-             auto closeReason = gui::Window::CloseReason::WindowSwitch;
-             switch (msg->getReason()) {
-             case SwitchReason::PhoneLock:
-                 closeReason = gui::Window::CloseReason::PhoneLock;
-                 break;
-             case SwitchReason::Popup:
-                 closeReason = gui::Window::CloseReason::Popup;
-                 break;
-             default:
-                 break;
-             }
+            auto closeReason = gui::Window::CloseReason::WindowSwitch;
+            switch (msg->getReason()) {
+            case SwitchReason::PhoneLock:
+                closeReason = gui::Window::CloseReason::PhoneLock;
+                break;
+            case SwitchReason::Popup:
+                closeReason = gui::Window::CloseReason::Popup;
+                break;
+            default:
+                break;
+            }
             getCurrentWindow()->onClose(closeReason);
         }
 
@@ -833,8 +833,8 @@ namespace app
         auto id        = data->getPopupId();
         auto blueprint = popupBlueprint.getBlueprint(id);
         if (!blueprint) {
-            LOG_ERROR("no blueprint to handle %s popup", std::string(magic_enum::enum_name(id)).c_str());
-            return;
+            LOG_ERROR("no blueprint to handle %s popup - fallback", std::string(magic_enum::enum_name(id)).c_str());
+            blueprint = popupBlueprintFallback(id);
         }
         auto request = gui::popup::Request(id, std::move(data), *blueprint);
         windowsPopupQueue->pushRequest(std::move(request));
@@ -913,6 +913,7 @@ namespace app
         auto window     = windowsStack().get(*windowname);
         if (windowname != window->getName()) {
             LOG_FATAL("Builtin vs Factory name mismatch ! %s vs %s", windowname->c_str(), window->getName().c_str());
+            window->setName(*windowname);
         }
         return window;
     }

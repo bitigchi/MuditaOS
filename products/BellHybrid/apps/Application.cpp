@@ -30,9 +30,13 @@ namespace app
         : ApplicationCommon(name, parent, statusIndicators, startInBackground, stackDepth, priority)
     {
         getPopupFilter().addAppDependentFilter([&](const gui::PopupRequestParams &popupParams) {
-            return ((isCurrentWindow(gui::popup::resolveWindowName(gui::popup::ID::Reboot))) ||
-                    (isCurrentWindow(gui::popup::resolveWindowName(gui::popup::ID::PowerOff))) ||
-                    (isCurrentWindow(gui::BellTurnOffWindow::name)));
+            bool val = ((isCurrentWindow(gui::popup::resolveWindowName(gui::popup::ID::Reboot))) ||
+                        (isCurrentWindow(gui::popup::resolveWindowName(gui::popup::ID::PowerOff))) ||
+                        (isCurrentWindow(gui::BellTurnOffWindow::name)));
+            if (val == true) {
+                LOG_ERROR("block popup - as curent window is in higher order popup");
+            }
+            return !val;
         });
     }
 

@@ -113,4 +113,15 @@ namespace app
                 return true;
             });
     }
+
+    std::optional<gui::popup::Blueprint> ApplicationCommon::popupBlueprintFallback(gui::popup::ID id)
+    {
+        popupBlueprint.registerBlueprint(
+            id, [&](gui::popup::ID id, std::unique_ptr<gui::PopupRequestParams> &p) -> bool {
+                switchWindowPopup(
+                    gui::popup::resolveWindowName(id), p->getDisposition(), nullptr, SwitchReason::PhoneLock);
+                return true;
+            });
+        return *popupBlueprint.getBlueprint(id);
+    }
 } // namespace app

@@ -21,13 +21,15 @@ namespace gui::popup
             }
         }
         if (stack != nullptr) {
+            /// there is no window to switch to
             auto data = stack->getWindowData(app::topWindow);
             if (not data) {
                 return true;
             }
             if ((*data).disposition.id == params.getPopupId()) {
-                /// its not ok to switch to popup of the same ID
-                return false;
+                /// its ok to switch to popup of the same ID
+                /// this is actually used by onboarding
+                return true;
             }
             if ((*data).disposition.priority > params.getDisposition().priority) {
                 /// it's not ok to switch to popup of lesser priority

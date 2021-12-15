@@ -22,7 +22,7 @@ namespace gui::popup
     {
       private:
         std::list<std::function<bool(const gui::PopupRequestParams &)>> appDependentFilter;
-        app::WindowsStack *stack                                                = nullptr;
+        app::WindowsStack *stack = nullptr;
 
       public:
         void attachWindowsStack(app::WindowsStack *stack);

@@ -39,14 +39,17 @@ namespace app
             auto val = ((isCurrentWindow(gui::popup::resolveWindowName(gui::popup::ID::Reboot))) ||
                         (isCurrentWindow(gui::popup::resolveWindowName(gui::popup::ID::PowerOff))) ||
                         (isCurrentWindow(gui::BellTurnOffWindow::name)));
-            if (val)
-                return val;
-            if (((popupParams.getPopupId() == gui::popup::ID::AlarmActivated ||
-                  popupParams.getPopupId() == gui::popup::ID::AlarmDeactivated)) and
-                (not isHomeScreenFocused())) {
+            if (val) {
+                LOG_INFO("popup blocked");
+                return !val;
+            }
+            if (not(((popupParams.getPopupId() == gui::popup::ID::AlarmActivated ||
+                      popupParams.getPopupId() == gui::popup::ID::AlarmDeactivated)) and
+                    (not isHomeScreenFocused()))) {
+                LOG_INFO("popup blocked");
                 return false;
             }
-            return false;
+            return true;
         });
 
         bus.channels.push_back(sys::BusChannel::ServiceDBNotifications);

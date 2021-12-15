@@ -349,6 +349,8 @@ namespace app
         void longPressTimerCallback();
         /// Method to register all possible popups to handle in application
         virtual void registerPopupBlueprints();
+        /// fallback method  to get popup if none is added
+        std::optional<gui::popup::Blueprint> popupBlueprintFallback(gui::popup::ID id);
         /// Method used to register all windows and widgets in application
         virtual void createUserInterface() = 0;
         /// Method closing application's windows.
