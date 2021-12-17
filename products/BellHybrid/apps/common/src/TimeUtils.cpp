@@ -27,28 +27,38 @@ namespace utils::time
     UTF8 getBottomDescription(std::time_t timestamp)
     {
         const auto prefix   = translate("app_bellmain_home_screen_bottom_desc");
+        const auto willRing = translate("app_bellmain_home_screen_bottom_desc_will_ring)";
+        const auto in       = translate("app_bellmain_home_screen_bottom_desc_in");
         const auto duration = Duration{timestamp};
         const auto timeText = [](time_t hours, time_t minutes) -> std::string {
             if (hours == 0) {
                 if (minutes == 0) {
-                    return "24 h";
+                    return "24 " + translate("common_hours_short");
                 }
                 else if (minutes == 1) {
-                    return translate("app_bellmain_home_screen_bottom_desc_less_than") + " 1 min";
+                    return translate("app_bellmain_home_screen_bottom_desc_less_than_one_minute");
                 }
                 else {
-                    return std::to_string(minutes) + " min";
+                    return std::to_string(minutes) + " " + translate("common_minute_short");
                 }
             }
             else if (minutes == 0) {
-                return std::to_string(hours) + " h";
+                return std::to_string(hours) + " " + translate("common_hours_short");
+            }
+            // Get singular hour in case there is one hour plus minutes
+            else if (hours == 1) && (minutes != 0) {
+                return std::to_string(hours) + " " +
+                    translate("common_hour_short") + " " +
+                    translate("app_bellmain_home_screen_bottom_desc_and") +
+                    std::to_string(minutes) + " " + translate("common_minute_short");
             }
             else {
-                return std::to_string(hours) + " h " + translate("app_bellmain_home_screen_bottom_desc_and") + " " +
-                       std::to_string(minutes) + " min";
+                return std::to_string(hours) + " " +
+                    translate("common_hours_short") + " " +
+                    translate("app_bellmain_home_screen_bottom_desc_and") +
+                    std::to_string(minutes) + " " + translate("common_minute_short");
             }
         }(duration.getHours(), duration.getMinutes());
-        return UTF8("<text>" + prefix + "<br />" + translate("app_bellmain_home_screen_bottom_desc_in") + " " +
-                    timeText + "</text>");
+        return UTF8("<text>" + prefix + willRing + in + "<br />" + timeText + "</text>");
     }
 } // namespace utils::time
